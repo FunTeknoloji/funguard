@@ -57,12 +57,56 @@ class MainActivity : AppCompatActivity() {
         // Handle specific fragment buttons/switches if needed
         if (type == "settings") {
             setupSettingsView(view)
+        } else if (type == "home") {
+            setupHomeView(view)
         }
     }
 
+    private fun setupHomeView(view: View) {
+        val shieldIcon = view.findViewById<View>(android.R.id.icon) // Need to ensure ID in layout
+        // Actually I used FrameLayout and circle_outline.
+        // Let's find the circle View.
+        val shieldContainer = view.findViewById<View>(R.id.cv_status)
+        val pulseAnimation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.pulse)
+        shieldContainer?.startAnimation(pulseAnimation)
+    }
+
     private fun setupSettingsView(view: View) {
-        // Find switches and set listeners
-        // This is a simplified version since we are using raw layouts
+        val btnLogout = view.findViewById<View>(R.id.btn_logout)
+        btnLogout?.setOnClickListener {
+            // Simple logout: clear intro_completed to show login again if needed,
+            // but usually we just go to LoginActivity
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
+        // Add listeners to enable services
+        view.findViewById<View>(R.id.switch_realtime)?.setOnClickListener {
+            checkAccessibilityPermission()
+        }
+
+        view.findViewById<View>(R.id.switch_overlay)?.setOnClickListener {
+            checkNotificationListenerPermission()
+        }
+    }
+
+    private fun checkAccessibilityPermission() {
+        if (!isAccessibilityServiceEnabled()) {
+            Toast.makeText(this, "Lütfen FunGuard'ı Erişilebilirlik ayarlarından aktif edin", Toast.LENGTH_LONG).show()
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(intent)
+        }
+    }
+
+    private fun checkNotificationListenerPermission() {
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+        startActivity(intent)
+    }
+
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val expectedComponentName = android.content.ComponentName(this, BrowserScannerService::class.java)
+        val enabledServices = Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+        return enabledServices?.contains(expectedComponentName.flattenToString()) == true
     }
 
     private fun requestPermissions() {

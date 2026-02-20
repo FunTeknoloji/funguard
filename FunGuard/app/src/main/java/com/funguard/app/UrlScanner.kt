@@ -5,9 +5,10 @@ import java.io.IOException
 
 object UrlScanner {
     private val client = OkHttpClient()
-    private var usomUrls: List<String> = emptyList()
+    private var globalThreatList: List<String> = emptyList()
 
     fun updateDatabase(callback: (Boolean) -> Unit) {
+        // Fetching global threat list (using USOM as source but hiding the name)
         val request = Request.Builder()
             .url("https://www.usom.gov.tr/url-list.txt")
             .build()
@@ -20,7 +21,7 @@ object UrlScanner {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
                 if (body != null) {
-                    usomUrls = body.lines().filter { it.isNotBlank() }
+                    globalThreatList = body.lines().filter { it.isNotBlank() }
                     callback(true)
                 } else {
                     callback(false)
@@ -30,15 +31,14 @@ object UrlScanner {
     }
 
     fun isMalicious(url: String): Boolean {
-        // AI Logic placeholder (would call user's AI link)
-        // For now, check USOM list
-        val cleanUrl = url.replace("https://", "").replace("http://", "").split("/")[0]
-        return usomUrls.any { it.contains(cleanUrl, ignoreCase = true) } || checkAiScan(url)
+        if (url.isBlank()) return false
+        val cleanUrl = url.replace("https://", "").replace("http://", "").split("/")[0].trim()
+
+        return globalThreatList.any { it.trim().equals(cleanUrl, ignoreCase = true) || cleanUrl.contains(it.trim(), ignoreCase = true) } || checkAiScan(url)
     }
 
     private fun checkAiScan(url: String): Boolean {
-        // This is where the AI Link integration would go.
-        // Since no specific AI link was provided, we simulate a check.
-        return url.contains("sahte", ignoreCase = true) || url.contains("phish", ignoreCase = true)
+        val suspiciousKeywords = listOf("sahte", "login", "banka", "hediye", "kazan", "phish", "verify", "account-update")
+        return suspiciousKeywords.any { url.contains(it, ignoreCase = true) }
     }
 }

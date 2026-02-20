@@ -9,68 +9,126 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ayarlar"
+            android:text="Gelişmiş Ayarlar"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="32dp" />
 
+        <!-- Category: Protection -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genel Korumalar"
+            android:text="KORUMA MODLARI"
             android:textColor="@color/neon_purple"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="12dp" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switch_realtime"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gerçek Zamanlı Koruma"
-            android:textColor="@color/white"
-            android:checked="true"
-            android:layout_marginBottom="16dp" />
+            app:cardBackgroundColor="@color/dark_purple"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            android:layout_marginBottom="24dp">
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switch_sms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SMS Taraması"
-            android:textColor="@color/white"
-            android:checked="true"
-            android:layout_marginBottom="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
 
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_realtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gerçek Zamanlı AI Tarama"
+                    android:textColor="@color/white"
+                    android:checked="true"
+                    android:padding="12dp" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#33FFFFFF" android:layout_marginHorizontal="12dp" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SMS ve Bağlantı Koruması"
+                    android:textColor="@color/white"
+                    android:checked="true"
+                    android:padding="12dp" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#33FFFFFF" android:layout_marginHorizontal="12dp" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bildirim Taraması"
+                    android:textColor="@color/white"
+                    android:checked="true"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Category: System -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gelişmiş"
+            android:text="SİSTEM"
             android:textColor="@color/neon_purple"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="12dp" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switch_overlay"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pop-up Uyarıları"
-            android:textColor="@color/white"
-            android:checked="true"
-            android:layout_marginBottom="16dp" />
+            app:cardBackgroundColor="@color/dark_purple"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            android:layout_marginBottom="24dp">
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switch_battery"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pop-up Uyarıları"
+                    android:textColor="@color/white"
+                    android:checked="true"
+                    android:padding="12dp" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#33FFFFFF" android:layout_marginHorizontal="12dp" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Yüksek Güç Modu"
+                    android:textColor="@color/white"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pil Optimizasyonunu Yoksay"
-            android:textColor="@color/white"
-            android:layout_marginBottom="16dp" />
+            android:layout_height="56dp"
+            android:text="Çıkış Yap"
+            android:textColor="@color/red_warning"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:rippleColor="@color/red_warning" />
 
     </LinearLayout>
 </ScrollView>

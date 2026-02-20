@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FunGuard</string>
     <string name="home_title">Anasayfa</string>
-    <string name="scanning_title">Tarama</string>
+    <string name="scanning_title">Tarama Merkezi</string>
     <string name="settings_title">Ayarlar</string>
     <string name="protection_status">Koruma Aktif</string>
     <string name="protection_off">Koruma Kapalı</string>
