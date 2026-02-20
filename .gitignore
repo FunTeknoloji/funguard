@@ -1,0 +1,4 @@
+node_modules/
+FunGuard/node_modules/
+FunGuard/app/build/
+.gradle/

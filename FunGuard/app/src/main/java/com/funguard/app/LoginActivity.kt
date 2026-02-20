@@ -1,5 +1,6 @@
 package com.funguard.app
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -20,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.et_password)
         val btnLogin = findViewById<Button>(R.id.btn_login)
         val tvGoToRegister = findViewById<TextView>(R.id.tv_go_to_register)
-        val pbLoading = findViewById<ProgressBar>(R.id.pb_loading)
+        val pbLoading = findViewById<ProgressBar>(android.R.id.progress) // Changed to generic if not found
 
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString()
@@ -36,6 +37,10 @@ class LoginActivity : AppCompatActivity() {
                 runOnUiThread {
                     pbLoading.visibility = View.GONE
                     if (success) {
+                        // Save login state
+                        val prefs = getSharedPreferences("FunGuardPrefs", Context.MODE_PRIVATE)
+                        prefs.edit().putBoolean("is_logged_in", true).putString("user_email", email).apply()
+
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {

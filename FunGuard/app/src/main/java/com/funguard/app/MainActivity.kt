@@ -63,12 +63,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupHomeView(view: View) {
-        val shieldIcon = view.findViewById<View>(android.R.id.icon) // Need to ensure ID in layout
-        // Actually I used FrameLayout and circle_outline.
-        // Let's find the circle View.
-        val shieldContainer = view.findViewById<View>(R.id.cv_status)
+        // Futuristic animation on rings
+        val ringOuter = view.findViewById<View>(R.id.v_ring_outer)
+        val ringInner = view.findViewById<View>(R.id.v_ring_inner)
+
         val pulseAnimation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.pulse)
-        shieldContainer?.startAnimation(pulseAnimation)
+        ringOuter?.startAnimation(pulseAnimation)
+        ringInner?.startAnimation(pulseAnimation)
     }
 
     private fun setupSettingsView(view: View) {
